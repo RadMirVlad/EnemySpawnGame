@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterMover : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     private CharacterController _characterController;
 
@@ -10,6 +10,10 @@ public class CharacterMover : MonoBehaviour
     private float _startMoveSpeed;
     public float MoveSpeed => _moveSpeed;
 
+    public Mover(float moveSpeed)
+    {
+        _currentMoveSpeed = moveSpeed;
+    }
     private void Awake()
     {
         _startMoveSpeed = MoveSpeed;

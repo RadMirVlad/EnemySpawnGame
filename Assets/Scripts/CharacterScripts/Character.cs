@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private CharacterMover _characterMover;
-    private CharacterRotator _characterRotator;
+    private Mover _characterMover;
+    private Rotator _characterRotator;
 
     private string _horizontalAxis = "Horizontal";
     private string _verticalAxis = "Vertical";
@@ -19,8 +19,8 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        _characterMover = GetComponent<CharacterMover>();
-        _characterRotator = GetComponent<CharacterRotator>();
+        _characterMover = GetComponent<Mover>();
+        _characterRotator = GetComponent<Rotator>();
 
         _startHealth = _currentHealth = Health; 
     }
