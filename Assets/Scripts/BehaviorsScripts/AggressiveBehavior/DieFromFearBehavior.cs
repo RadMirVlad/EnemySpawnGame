@@ -1,15 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
-public class DieFromFearBehavior : IAggressiveBehavior
+public class DieFromFearBehavior : IEnemyBehavior
 {
-    private Enemy _enemy;
+    private Transform _transform;
+    private EffectsManager _effectsManager;
 
-    public DieFromFearBehavior(Enemy enemy)
+    public DieFromFearBehavior(Transform transform, EffectsManager effectsManager)
     {
-        _enemy = enemy;
+        _transform = transform;
+        _effectsManager = effectsManager;
     }
-    public void MakeAggressiveBehavior()
+    public void MakeBehavior()
     {
-        _enemy.gameObject.SetActive(false);
+        _transform.gameObject.SetActive(false);
+        _effectsManager.PlayDeathEffect(_transform.position);
     }
 
     public void PrintMessage()

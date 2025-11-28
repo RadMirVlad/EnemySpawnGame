@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6021738962fd94ca71cdde399effd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mover: {fileID: -6910330925130540890}
+  _peacefulMaterial: {fileID: 2100000, guid: e0604a71c49bfd3408ec116e87714fef, type: 2}
+  _aggressiveMaterial: {fileID: 2100000, guid: 720771f3623f240459adb70642e50a1b, type: 2}
 --- !u!135 &4352865132932835104
 SphereCollider:
   m_ObjectHideFlags: 0

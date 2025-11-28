@@ -1,19 +1,20 @@
 using UnityEngine;
-public class ChaseBehavior : IAggressiveBehavior
+
+public class ChaseBehavior : IEnemyBehavior
 {
-    private Enemy _enemy;
-    private Character _character;
+    private Transform _transform;
+    private Transform _targetTransform;
     private Mover _mover;
 
-    public ChaseBehavior(Enemy enemy, Character character)
+    public ChaseBehavior(Transform transform, Transform targetTransform)
     {
-        _enemy = enemy;
-        _character = character;
+        _transform = transform;
+        _targetTransform = targetTransform;
 
-        _mover = _enemy.GetComponent<Mover>();
+        _mover = _transform.GetComponent<Mover>();
     }
 
-    public void MakeAggressiveBehavior()
+    public void MakeBehavior()
     {
         Vector3 direction = GetDirectionToCharacter();
 
@@ -26,5 +27,5 @@ public class ChaseBehavior : IAggressiveBehavior
         Debug.Log("Я иду к тебе чтобы потрогать.");
     }
 
-    private Vector3 GetDirectionToCharacter() => _character.transform.position - _enemy.transform.position;
+    private Vector3 GetDirectionToCharacter() => _targetTransform.position - _transform.transform.position;
 }

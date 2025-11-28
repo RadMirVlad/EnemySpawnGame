@@ -1,21 +1,21 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
-public class RunAwayBehavior : IAggressiveBehavior
+public class RunAwayBehavior : IEnemyBehavior
 {
-    private Enemy _enemy;
-    private Character _character;
+    private Transform _transform;
+    private Transform _targetTransform;
     private Mover _mover;
 
-    public RunAwayBehavior(Enemy enemy, Character character)
+    public RunAwayBehavior(Transform transform, Transform targetTransform)
     {
-        _enemy = enemy;
-        _character = character;
+        _transform = transform;
 
-        _mover = _enemy.GetComponent<Mover>();
+        _targetTransform = targetTransform;
+
+        _mover = _transform.GetComponent<Mover>();
     }
 
-    public void MakeAggressiveBehavior()
+    public void MakeBehavior()
     {
         Vector3 direction = GetDirectionToCharacter();
 
@@ -28,5 +28,5 @@ public class RunAwayBehavior : IAggressiveBehavior
         Debug.Log("Я убегаю от тебя.");
     }
 
-    private Vector3 GetDirectionToCharacter() => _character.transform.position - _enemy.transform.position;
+    private Vector3 GetDirectionToCharacter() => _targetTransform.position - _transform.position;
 }

@@ -1,47 +1,53 @@
-using System.Collections.Generic;
 using UnityEngine;
-public class WanderBehavior : IPeacefulBehavior
+using UnityEngine.UIElements;
+
+public class WanderBehavior : IEnemyBehavior
 {
-    private float _minDistanceToTarget = 0.05f;
+    private float _timeToChangeDirection = 1f;
+    private float _currentTime = 0;
+    private int valueToRandom = 10;
 
-    private Enemy _enemy;
+    private Vector3 _currentDirection;
+
     private Mover _mover;
+    private Material _material;
 
-    private Vector3 _currentTarget;
-
-    private List<Transform> _patrolPoints;
-
-    public WanderBehavior(List<Transform> patrolPoints, Enemy enemy)
+    public WanderBehavior(Mover mover)
     {
-        _patrolPoints = patrolPoints;
-        _enemy = enemy;
-        _mover = _enemy.GetComponent<Mover>();
+        _mover = mover;
 
         SwitchTarget();
     }
 
-    public void MakePeacefulBehavior()
+    public void MakeBehavior()
     {
-        Vector3 direction = _currentTarget - _enemy.transform.position;
+        _currentTime += Time.deltaTime;
 
-        if (direction.magnitude <= _minDistanceToTarget)
+        if (_currentTime >= _timeToChangeDirection)
         {
             SwitchTarget();
-            direction = _currentTarget - _enemy.transform.position;
+            _currentTime = 0;
         }
 
+        Vector3 direction = _currentDirection;
         Vector3 normalizedDirection = direction.normalized;
+
         _mover.ProcessMoveTo(normalizedDirection);
     }
 
     public void PrintMessage()
     {
-        Debug.Log("Я брожу туда-сюда от точки до точки в случайном порядке.");
+        Debug.Log("Я брожу туда-сюда.");
     }
 
     private void SwitchTarget()
     {
-        int randomIndex = Random.Range(0, _patrolPoints.Count);
-        _currentTarget = _patrolPoints[randomIndex].position;
+        int randomX = Random.Range(-valueToRandom, valueToRandom);
+        int randomZ = Random.Range(-valueToRandom, valueToRandom);
+
+        if (randomX != 0 && randomZ != 0)
+            _currentDirection = new(randomX, 0, randomZ);
+        else
+            _currentDirection = Vector3.left;
     }
 }

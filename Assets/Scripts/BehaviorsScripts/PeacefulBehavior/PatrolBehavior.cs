@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class PatrolBehavior : IPeacefulBehavior
+public class PatrolBehavior : IEnemyBehavior
 {
     private float _minDistanceToTarget = 0.05f;
 
-    private Enemy _enemy;
     private Mover _mover;
 
     private Vector3 _currentTarget;
@@ -13,24 +12,24 @@ public class PatrolBehavior : IPeacefulBehavior
 
     private Queue<Vector3> _queuePatrolPoints;
 
-    public PatrolBehavior(List<Transform> patrolPoints, Enemy enemy)
+    public PatrolBehavior(List<Transform> patrolPoints, Mover mover)
     {
         _patrolPoints = patrolPoints;
-        _enemy = enemy;
-        _mover = _enemy.GetComponent<Mover>();
+
+        _mover = mover;
 
         CreateQueue();
     }
 
-    public void MakePeacefulBehavior()
+    public void MakeBehavior()
     {
         Vector3 targetPosition = _currentTarget;
-        Vector3 direction = targetPosition - _enemy.transform.position;
+        Vector3 direction = targetPosition - _mover.transform.position;
 
         if (direction.magnitude <= _minDistanceToTarget)
         {
             SwitchTarget();
-            direction = _currentTarget - _enemy.transform.position;
+            direction = _currentTarget - _mover.transform.position;
         }
 
         Vector3 normalizedDirection = direction.normalized;

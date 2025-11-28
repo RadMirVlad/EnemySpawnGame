@@ -1,10 +1,10 @@
 using UnityEngine;
-public class DoNothing : IPeacefulBehavior
+using UnityEngine.UIElements;
+
+public class DoNothing : IEnemyBehavior
 {
-    public void MakePeacefulBehavior()
-    {
-        
-    }
+    public DoNothing() { }
+    public void MakeBehavior() { }
 
     public void PrintMessage()
     {
